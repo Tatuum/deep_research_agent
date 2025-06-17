@@ -1,5 +1,6 @@
 import os
 from typing import Dict
+from config import INSTRUCTIONS_EMAIL
 
 import sendgrid
 from sendgrid.helpers.mail import Email, Mail, Content, To
