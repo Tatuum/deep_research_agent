@@ -1,11 +1,7 @@
 from pydantic import BaseModel
 from agents import Agent
+from config import INSTRUCTIONS_PLANNER
 
-HOW_MANY_SEARCHES = 3
-
-INSTRUCTIONS = f"You are a helpful research assistant. \
-    Given a query, come up with a set of web searches to perform to best answer the query. \
-     Output {HOW_MANY_SEARCHES} terms to search for."
 
 class WebSearchItem(BaseModel):
     reason: str
@@ -20,7 +16,7 @@ class WebSearchList(BaseModel):
 
 planner_agent = Agent(
     name="Web Search Planner",
-    instructions=INSTRUCTIONS,
+    instructions=INSTRUCTIONS_PLANNER,
     model="gpt-4o-mini",
     output_type=WebSearchList,
     
