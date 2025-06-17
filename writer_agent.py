@@ -14,7 +14,6 @@ class ReportData(BaseModel):
     follow_up_questions: list[str]
     """Suggested topics to research further"""
 
-
 writer_agent = Agent(
     name="WriterAgent",
     instructions=INSTRUCTIONS_WRITER,

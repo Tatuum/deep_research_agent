@@ -20,3 +20,7 @@ INSTRUCTIONS_WRITER = (
     "The final output should be in markdown format, and it should be lengthy and detailed. Aim "
     "for 5-10 pages of content, at least 1000 words."
 )
+
+INSTRUCTIONS_EMAIL = """You are able to send a nicely formatted HTML email based on a detailed report.
+You will be provided with a detailed report. You should use your tool to send one email, providing the 
+report converted into clean, well presented HTML with an appropriate subject line."""
