@@ -12,7 +12,6 @@ class ResearchManager:
         """Run the deep research and yielding the results"""
         trace_id = gen_trace_id()
         with trace("Research Manager", trace_id):
-            print("view trace", trace_id=trace_id)
             print(f"View trace: https://platform.openai.com/traces/trace?trace_id={trace_id}")
             yield f"View trace: https://platform.openai.com/traces/trace?trace_id={trace_id}"
             print("Starting research...")
@@ -22,7 +21,9 @@ class ResearchManager:
             yield f"Performed {len(search_results)} searches"
             report = await self.write_report(query, search_results)
             yield f"Wrote report"
-            yield report
+            await self.send_email(report)
+            yield f"Sent email, research complete"
+            yield report.markdown_report
 
     async def plan_searches(self, query: str) -> WebSearchList:
         """Plan the searches for the query"""
@@ -54,16 +55,24 @@ class ResearchManager:
         results = await asyncio.gather(*tasks)
         return results
     
-    async def write_report(self, query: str, search_results: list[str]) -> str:
+    async def write_report(self, query: str, search_results: list[str]) -> ReportData:
         """Write the report for the query"""
         print("Writing report...")
-        input = f"Original query: {query} \n"
-        result = await Runner.run(writer_agent, query, search_results)
-        return str(result.final_output)
+        input = f"Original query: {query}\nSummarized search results: {search_results}"
+        result = await Runner.run(
+            writer_agent, 
+            input,
+            )
+        print("Report written")
+        return result.final_output_as(ReportData)
     
     async def send_email(self, report: ReportData) -> None:
         """Send the report by email"""
         print("Sending email...")
-        await Runner.run(email_agent, report.markdown_report)
+        result = await Runner.run(
+            email_agent, 
+            report.markdown_report,
+            )
+        print("Email sent")
         return report
 
