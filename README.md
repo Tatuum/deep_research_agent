@@ -26,7 +26,7 @@ The system provides both a web interface (Gradio) and programmatic access for re
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Tatuum/deep_research_agent.git
    cd deep_research_agent
    ```
 
