@@ -1,4 +1,4 @@
-# Deep Research Agent
+# Deep Research Agent (OpenAI SDK, SendGrid, Gradio)
 
 An intelligent research automation system that uses multiple AI agents to perform comprehensive web research, generate detailed reports, and deliver results via email.
 
